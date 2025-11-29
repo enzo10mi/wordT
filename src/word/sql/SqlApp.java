@@ -31,5 +31,5 @@ public class SqlApp {
         "CONSTRAINT fk_word FOREIGN KEY (word_id) REFERENCES Words(id))";
     
     // 4. 初始化数据为空 (因为我们现在改用文件导入了)
-    public static final String INIT_WORDS = ""; 
+    public static final String INIT_WORDS = "test.txt"; 
 }

@@ -29,8 +29,7 @@ public class WordDAO {
         List<Word> list = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(SqlWord.GET_STUDY_LIST)) {
-            pstmt.setInt(1, userId);
-            pstmt.setInt(2, limit);
+            //pstmt.setInt(1, limit);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 list.add(mapRowToWord(rs));

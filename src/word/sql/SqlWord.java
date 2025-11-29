@@ -10,9 +10,10 @@ public class SqlWord {
     // 2. ORDER BY RANDOM() 实现随机乱序
     // 3. FETCH FIRST ? ROWS ONLY 实现只取 20 个 (问号是占位符)
     public static final String GET_STUDY_LIST = 
-        "SELECT w.* FROM Words w " +
-        "JOIN StudyRecords sr ON w.id = sr.word_id " +
-        "WHERE sr.user_id = ? AND sr.known = false " +
-        "ORDER BY RANDOM() " +
-        "FETCH FIRST ? ROWS ONLY";
+            /*  "SELECT w.* FROM Words w " +
+            "JOIN StudyRecords sr ON w.id = sr.word_id " +
+            "WHERE sr.user_id = ? AND sr.known = false " +
+            "ORDER BY RANDOM() " +
+            "FETCH FIRST ? ROWS ONLY";*/
+            "SELECT w.* FROM Words w FETCH FIRST 20 ROWS ONLY";
 }

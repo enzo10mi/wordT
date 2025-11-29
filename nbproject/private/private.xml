@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/NetBeansProjects/Word/test/word/view/StudyViewShow.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/dao/UserDAO.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/view/StudyView.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/model/Word.java</file>
             <file>file:/D:/NetBeansProjects/Word/test/word/dao/UserDAOTest.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/Word.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/RunApp.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/sql/SqlWord.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/controller/StudyController.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/dao/WordDAO.java</file>
         </group>

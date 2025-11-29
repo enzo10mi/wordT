@@ -39,6 +39,7 @@ public class StudyController {
         
         // 3. 显示第一个单词
         showCurrentWord();
+        System.out.println("read:"+wordList.size());
     }
 
     private void loadData() {
@@ -53,6 +54,9 @@ public class StudyController {
             
             view.setWord(w.getEnglish());
             view.setMeaning(w.getChinese());
+            
+            System.out.println("抽中: " + w.getEnglish() + " (" + w.getChinese() + ")");
+            
             
             // *** 关键：切换到答题模式 (藏释义，显选项) ***
             view.switchMode(true); 

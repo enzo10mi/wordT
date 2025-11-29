@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Sat Nov 29 15:26:21 CST 2025:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-019a-ce81-7237-00000f234808 
-on database directory G:\aut\word\WordLearningDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@65b54208 
-Loaded from file:/G:/aut/word/lib/derby.jar
+Sat Nov 29 16:22:07 CST 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-019a-ceb4-7fcb-00001f210008 
+on database directory D:\NetBeansProjects\Word\WordLearningDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@65b54208 
+Loaded from file:/D:/NetBeansProjects/Word/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=21.0.7+8-LTS-245
-user.dir=G:\aut\word
+user.dir=D:\NetBeansProjects\Word
 os.name=Windows 11
 os.arch=amd64
 os.version=10.0
