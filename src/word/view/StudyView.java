@@ -84,19 +84,23 @@ public class StudyView extends JFrame {
      *    true:  答题阶段 (显示 认识/不认识，隐藏 释义，隐藏 下一个)
      *    false: 结果阶段 (隐藏 认识/不认识，显示 释义，显示 下一个)
      */
-    public void switchMode(boolean isDecisionPhase) {
+     public void switchMode(boolean isDecisionPhase) {
         if (isDecisionPhase) {
             // 状态A：刚看到单词
-            txtMeaning.setVisible(false);      // 藏释义
-            btnKnown.setVisible(true);         // 显按钮
+            txtMeaning.setVisible(false);
+            btnKnown.setVisible(true);
             btnUnknown.setVisible(true);
-            btnNext.setVisible(false);         // 藏下一个
+            btnNext.setVisible(false);        // 藏下一个
         } else {
             // 状态B：看答案
-            txtMeaning.setVisible(true);       // 显释义
-            btnKnown.setVisible(false);        // 藏按钮
+            txtMeaning.setVisible(true);
+        
+            // 如果你希望点完还在，就把下面两行注释掉。
+            // 但通常为了防误触，我们是会让它们消失的。
+            btnKnown.setVisible(false);   
             btnUnknown.setVisible(false);
-            btnNext.setVisible(true);          // 显下一个
+        
+            btnNext.setVisible(true);         // 显下一个
         }
         // 刷新布局，防止按钮隐藏后位置没更新
         bottomPanel.revalidate();

@@ -106,7 +106,7 @@ public class StudyController {
         // 比如如果认识，释义显示黑色；不认识，释义显示红色
         
         // *** 关键：切换到“答案模式”，true表示显示答案 ***
-        view.switchMode(true);
+        view.switchMode(false);
     }
 
     /**
