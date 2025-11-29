@@ -1,7 +1,8 @@
-package word.util;
+package word.dao;
 
 import word.util.DBConnection;
 import java.sql.Connection;
+import word.util.DBConnection;
 
 public class MainTest {
     public static void main(String[] args) {

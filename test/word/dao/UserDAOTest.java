@@ -1,8 +1,5 @@
-package word.test; // 确保包名正确，如果你的类在 word.dao 包里测试，就改成 word.dao
+package word.dao; // 确保包名正确，如果你的类在 word.dao 包里测试，就改成 word.dao
 
-import word.dao.StudyrecordDAO;
-import word.dao.UserDAO;
-import word.dao.WordDAO;
 import word.model.User;
 import word.model.Word;
 import word.util.DBConnection;

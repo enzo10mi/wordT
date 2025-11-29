@@ -1,0 +1,17 @@
+接口使用说明：
+
+1，DBConnecttion.java
+line19:   getConnection() 获取数据库连接,没有就初始化
+
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(
+            DbProperties.DB_URL, 
+            DbProperties.USER, 
+            DbProperties.PASSWORD
+        );
+        
+        // 获取连接时，顺便检查表是否存在，不存在就初始化
+        checkAndInitTables(conn);
+        
+        return conn;
+    }

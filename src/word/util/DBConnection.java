@@ -9,7 +9,7 @@ public class DBConnection {
     // 静态代码块：加载驱动 (只执行一次)
     static {
         try {
-            Class.forName(DbProperties.DRIVER_CLASS);
+            Class.forName(DbProperties.DRIVER_CLASS);//创建数据库
         } catch (ClassNotFoundException e) {
             System.err.println("数据库驱动加载失败！请检查 jar 包是否导入。");
             e.printStackTrace();
@@ -27,7 +27,6 @@ public class DBConnection {
         );
         
         // 获取连接时，顺便检查表是否存在，不存在就初始化
-        // 这样就实现了 PDF 里的 "set up automatically"
         checkAndInitTables(conn);
         
         return conn;
