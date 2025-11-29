@@ -16,4 +16,9 @@ public class SqlWord {
             "ORDER BY RANDOM() " +
             "FETCH FIRST ? ROWS ONLY";*/
             "SELECT w.* FROM Words w FETCH FIRST 20 ROWS ONLY";
+    
+    /**
+     * 查询数据库数量
+     */
+    public static String GET_IF_HAVE_WORDS = "select count(*) from words";
 }

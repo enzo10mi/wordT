@@ -52,7 +52,7 @@ public class DBConnection {
                 System.out.println(">> 系统初始化: Words 表创建成功。");
                 
                 // 如果是刚创建的表，顺便插点数据进去测试
-                stmt.execute(SqlApp.INIT_WORDS);
+                //stmt.execute(SqlApp.INIT_WORDS);
                 System.out.println(">> 系统初始化: 写入初始单词数据。");
             } catch (SQLException e) {
                 if (!"X0Y32".equals(e.getSQLState())) throw e;
