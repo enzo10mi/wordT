@@ -3,7 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/NetBeansProjects/Word/src/word/dao/UserDAO.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/view/StudyView.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/util/DataImporter.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/model/Word.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/sql/SqlUser.java</file>
+            <file>file:/D:/NetBeansProjects/Word/test/word/dao/UserDAOTest.java</file>
             <file>file:/D:/NetBeansProjects/Word/src/word/Word.java</file>
+            <file>file:/D:/NetBeansProjects/Word/test/word/view/StudyViewTest.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/model/User.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/model/Studyrecord.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/resource/DbProperties.java</file>
+            <file>file:/D:/NetBeansProjects/Word/test/word/dao/MainTest.java</file>
+            <file>file:/D:/NetBeansProjects/Word/src/word/view/LoginView.java</file>
         </group>
     </open-files>
 </project-private>
