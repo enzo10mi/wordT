@@ -76,10 +76,13 @@ public class LoginView extends JFrame {
     }
 
     public void addLoginListener(ActionListener listener) {
+        btnLogin.setActionCommand("登录");
         btnLogin.addActionListener(listener);
     }
-    
+
+// 供 Controller 调用，绑定注册事件
     public void addRegisterListener(ActionListener listener) {
+        btnRegister.setActionCommand("注册");
         btnRegister.addActionListener(listener);
     }
 

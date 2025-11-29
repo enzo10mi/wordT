@@ -15,21 +15,26 @@ import java.util.List;
 import word.dao.*;
 import word.model.Word;
 import word.view.StudyView;
+import word.model.User;
 
 public class StudyController {
     private StudyView view;
     private WordDAO wordDAO;
+    private StudyrecordDAO recordDAO;
     
     // 数据状态
     private List<Word> wordList;
     private int currentIndex = 0;
     
+    private int currentUserId; // 【新增】当前登录用户的ID
     // 临时记录当前单词是否认识（可选，用于存入数据库）
     private boolean isCurrentWordKnown = false;  
 
-    public StudyController(StudyView view) {
+    public StudyController(StudyView view, User user) {
         this.view = view;
         this.wordDAO = new WordDAO();
+        this.recordDAO = new StudyrecordDAO(); // 【新增】初始化 DAO
+        this.currentUserId = user.getId(); // 【新增】保存用户ID
         
         // 1. 获取数据
         loadData();
@@ -45,6 +50,10 @@ public class StudyController {
     private void loadData() {
         // 假设这里取20个
         wordList = wordDAO.getStudyList(1, 20); 
+        if (wordList.isEmpty()) {
+            JOptionPane.showMessageDialog(view, "恭喜！您已学完所有单词或词库为空！");
+            // 这里可以添加逻辑，比如加载下一个词库
+        }
     }
 
     // 核心逻辑：显示当前单词，重置界面为“答题模式”
