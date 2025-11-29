@@ -1,65 +1,56 @@
 package word.util;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset; // 1. 必须引入这个
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.sql.*;
 
 public class DataImporter {
 
     public static void importFromTxt(String fileName, String category) {
-        // ... (SQL 语句保持不变)
         String sql = "INSERT INTO Words (english, chinese, category) VALUES (?, ?, ?)";
         
+        // 读取文件流
         InputStream is = DataImporter.class.getResourceAsStream("/word/resource/data/" + fileName);
-        
         if (is == null) {
-            System.err.println("? 错误：找不到文件 [" + fileName + "]");
+            System.err.println("? 找不到文件: " + fileName);
             return;
         }
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
-             // 【核心修改】这里必须改成 GBK，因为你刚才把文件存为了 ANSI
-             BufferedReader reader = new BufferedReader(
-                 new InputStreamReader(is, Charset.forName("GBK")) 
-             )) {
+             // 配合你刚才保存的 ANSI 格式，这里用 GBK 读取
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("GBK")))) {
             
-            // ... (中间的读取逻辑保持不变) ...
-            
-            conn.setAutoCommit(false); 
+            conn.setAutoCommit(false);
             String line;
             int count = 0;
-            System.out.println("开始读取文件 (GBK模式): " + fileName + " ...");
+            
+            System.out.println("正在导入 " + fileName + " ...");
 
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
-                // 确保你的txt里是用 # 分隔的
-                String[] parts = line.split("#"); 
+                // 【核心修改】用正则 \\s+ 切割（适配 1 个或多个空格）
+                // 限制切成 2 段：[0]=英文, [1]=后面所有的中文
+                String[] parts = line.trim().split("\\s+", 2);
                 
                 if (parts.length >= 2) {
-                    pstmt.setString(1, parts[0].trim()); 
-                    pstmt.setString(2, parts[1].trim()); 
-                    pstmt.setString(3, category);       
-                    pstmt.addBatch(); 
+                    pstmt.setString(1, parts[0].trim()); // 英文
+                    pstmt.setString(2, parts[1].trim()); // 中文
+                    pstmt.setString(3, category);        // 分类 (如 "CET4")
+                    pstmt.addBatch();
                     count++;
-                    
-                    if (count % 1000 == 0) {
-                        pstmt.executeBatch();
-                        conn.commit();
-                        System.out.println("-> 已导入 " + count + " 条...");
-                    }
+                }
+                
+                if (count % 1000 == 0) {
+                    pstmt.executeBatch();
+                    conn.commit();
                 }
             }
             pstmt.executeBatch();
             conn.commit();
-            conn.setAutoCommit(true); 
-            
-            System.out.println("? 导入完成！");
+            conn.setAutoCommit(true);
+            System.out.println("? 成功导入 [" + category + "] 共 " + count + " 条数据。");
 
         } catch (Exception e) {
             e.printStackTrace();
