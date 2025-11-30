@@ -1,17 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package word.controller;
+
+/**
+ *
+ * @author yuzhe
+ */
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import java.util.List;
-import word.dao.*;
-import word.model.Word;
-import word.view.StudyView;
+import javax.swing.JOptionPane;
+import word.dao.StudyrecordDAO;
+import word.dao.WordDAO;
 import word.model.User;
+import word.model.Word;
 import word.view.MainView;
+import word.view.ReviewView;
 
-public class StudyController {
-    private StudyView view;
+public class ReviewController {
+    private ReviewView view;
     private User user;
     private int currentUserId; 
     private WordDAO wordDAO;
@@ -28,10 +38,10 @@ public class StudyController {
      * @param view 视图界面
      * @param user 当前登录用户
      */
-    public StudyController(StudyView view, User user) {
+    public ReviewController(ReviewView view, User user) {
         this.view = view;
         this.user = user;
-        this.currentUserId = user.getId(); 
+        this.currentUserId = user.getId();
         
         // 初始化 DAO
         this.wordDAO = new WordDAO();
@@ -47,7 +57,7 @@ public class StudyController {
         initActions();
         
         // 4. 设置窗口标题
-        view.setTitle("背单词 - 学习新词");
+        view.setTitle("背单词 - 复习所有已背单词");
         
         // 5. 显示第一个单词
         if (wordList != null && !wordList.isEmpty()) {
@@ -59,11 +69,11 @@ public class StudyController {
      * 加载数据核心逻辑
      */
     private void loadData() {
-        // 【学习模式】：调用 getStudyList
-        // 获取所有 is_studied=false 的单词
-        wordList = wordDAO.getStudyList(currentUserId, 20); 
+        // 【复习模式】：调用 getReviewList
+        // 获取所有 is_studied=true 的单词，不管认不认识
+        wordList = wordDAO.getReviewList(currentUserId);
         if (wordList.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "恭喜！您已学完词库中的所有单词！");
+            JOptionPane.showMessageDialog(view, "您还没有背过任何单词，请先去【学习新词】！");
             view.dispose(); // 关闭窗口
         }
     }
@@ -76,7 +86,7 @@ public class StudyController {
             view.setMeaning(w.getChinese());
             view.switchMode(true); // 进入答题阶段
         } else {
-            JOptionPane.showMessageDialog(view, "本组单词完成！");
+            JOptionPane.showMessageDialog(view, "本组单词复习完成！");
             view.dispose(); 
         }
     }
@@ -134,7 +144,7 @@ public class StudyController {
             showCurrentWord(); 
         } else {
             JOptionPane.showMessageDialog(view, "恭喜！本次任务完成！");
-            view.dispose();
+            view.dispose(); 
             
             MainView mainView = new MainView();
             // 关键：要把当前登录的 User 传给下一个控制器
