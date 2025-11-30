@@ -99,7 +99,8 @@ public class MainController {
                 view.dispose();
                 // ·µ»ØµÇÂ¼½çÃæ...
                 LoginView loginView = new LoginView();
-                new LoginController(new LoginView());
+                
+                new LoginController(loginView);
                 loginView.setVisible(true);
             }
         });
