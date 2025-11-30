@@ -8,20 +8,19 @@ public class StudyrecordDAO {
 
     /**
      * 为指定用户初始化单词本
-     * @param userId 用户的ID
-     * @return 初始化了多少条记录
+     * @param userId 用户ID
+     * @return 初始化插入的行数
      */
     public int initRecords(int userId) {
         int count = 0;
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(SqlStudyrecord.INIT_RECORDS_FOR_USER)) {
             
-            // 填入 SQL 中的两个问号
+            // 填入 SQL 中的占位符
             pstmt.setInt(1, userId);
-            pstmt.setInt(2, userId); // 第二个问号也是 userId，用于 NOT EXISTS 检查
+            pstmt.setInt(2, userId); 
             
             count = pstmt.executeUpdate();
-            // System.out.println("用户 " + userId + " 初始化单词数: " + count);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,9 +30,10 @@ public class StudyrecordDAO {
 
     /**
      * 更新某个单词的学习状态
-     * @param userId 当前用户ID
+     * 同时也自动把 is_studied 设为 true
+     * @param userId 用户ID
      * @param wordId 单词ID
-     * @param known 是否认识 (true=认识, false=不认识)
+     * @param known 用户是否认识
      * @return 是否更新成功
      */
     public boolean updateStatus(int userId, int wordId, boolean known) {
