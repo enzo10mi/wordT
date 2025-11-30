@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package word;
-
-/**
- *
- * @author yuzhe
- */
+package word; 
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,21 +8,16 @@ import java.sql.SQLException;
 // 导入您需要的工具类和 SQL 定义
 import word.util.DBConnection;
 import word.util.DataImporter;
-import word.sql.SqlApp;
 import word.sql.SqlWord;
-
 // 【核心修改】导入登录模块，而不是学习模块
 import word.view.LoginView;
 import word.controller.LoginController; 
+
 public class Word {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
-        System.out.println("=== 系统启动中 ===");
-        
+        System.out.println("=== 系统启动中 (Main: Word) ===");
         
         // --- 1. 数据库和数据初始化 (这部分保持不变) ---
         int count = 0; 
@@ -46,14 +32,19 @@ public class Word {
             e.printStackTrace();
         }
         
-        System.out.println("数据库单词数量：" + count);
         
         // 检查单词数量是否为0，如果为0则导入
         if(count == 0){
-            // SqlApp.INIT_WORDS 默认为 "test.txt"
-            DataImporter.importFromTxt(SqlApp.INIT_WORDS, "test"); //
+            System.out.println(">> 检测到数据库为空，开始初始化多本词书...");
+            // 【核心修改】一次性导入所有词书，并指定不同的 category (分类名)
+            // 请确保 src/word/resource/data/ 目录下有这些文件
+            DataImporter.importFromTxt("CT4.txt", "四级词汇");
+            DataImporter.importFromTxt("CT6.txt", "六级词汇");
+            DataImporter.importFromTxt("IELTS.txt", "雅思词汇");
+            DataImporter.importFromTxt("gaokao.txt", "高考词汇");
         }
         
+        System.out.println("当前数据库单词总数：" + count);
         
         // --- 2. 【核心修改】启动登录流程 ---
         try {
@@ -71,7 +62,5 @@ public class Word {
             e.printStackTrace();
             System.out.println("启动失败，请检查数据库连接或View类代码。");
         }
-        
     }
-    
 }

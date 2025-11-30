@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 public class MainView extends JFrame {
 
     private JLabel lblWelcome;
+    private JButton btnSelectbook;
     private JButton btnStartStudy;  // 开始学习
     private JButton btnReview;      // 复习
     private JButton btnLogout;      // 退出登录
@@ -43,23 +44,28 @@ public class MainView extends JFrame {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
+        btnSelectbook = new JButton("选择词书");
         btnStartStudy = new JButton("开始学习 (新词)");
-        btnReview = new JButton("复习 (错题/已学)");
+        btnReview = new JButton("复习 (错题)");
         btnLogout = new JButton("退出登录");
 
         // 设置按钮大小一致
         Dimension btnSize = new Dimension(200, 50);
+        btnSelectbook.setMaximumSize(btnSize);
         btnStartStudy.setMaximumSize(btnSize);
         btnReview.setMaximumSize(btnSize);
         btnLogout.setMaximumSize(btnSize);
         
         // 居中对齐
+        btnSelectbook.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnStartStudy.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnReview.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnLogout.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // 添加到面板（加一点间距）
         centerPanel.add(Box.createVerticalGlue()); // 顶开
+        centerPanel.add(btnSelectbook);
+        centerPanel.add(Box.createVerticalStrut(30)); // 间距
         centerPanel.add(btnStartStudy);
         centerPanel.add(Box.createVerticalStrut(30)); // 间距
         centerPanel.add(btnReview);
@@ -86,5 +92,9 @@ public class MainView extends JFrame {
 
     public void addLogoutListener(ActionListener l) {
         btnLogout.addActionListener(l);
+    }
+    
+    public void addSelectBookListener(ActionListener l) {
+        btnSelectbook.addActionListener(l);
     }
 }

@@ -57,7 +57,7 @@ public class ReviewController {
         initActions();
         
         // 4. 设置窗口标题
-        view.setTitle("背单词 - 复习所有已背单词");
+        view.setTitle("背单词 - 复习错题本"); // 标题也可以稍微改一下
         
         // 5. 显示第一个单词
         if (wordList != null && !wordList.isEmpty()) {
@@ -69,12 +69,11 @@ public class ReviewController {
      * 加载数据核心逻辑
      */
     private void loadData() {
-        // 【复习模式】：调用 getReviewList
-        // 获取所有 is_studied=true 的单词，不管认不认识
         wordList = wordDAO.getReviewList(currentUserId);
+        
         if (wordList.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "您还没有背过任何单词，请先去【学习新词】！");
-            view.dispose(); // 关闭窗口
+            System.out.println("警告：进入学习界面但列表为空");
+            return;
         }
     }
 
@@ -86,8 +85,10 @@ public class ReviewController {
             view.setMeaning(w.getChinese());
             view.switchMode(true); // 进入答题阶段
         } else {
-            JOptionPane.showMessageDialog(view, "本组单词复习完成！");
+            JOptionPane.showMessageDialog(view, "本组复习完成！");
             view.dispose(); 
+            // 这里你可以选择是否要在复习完一组后跳回主菜单，或者直接关闭
+            gobackToMain();
         }
     }
 
@@ -133,6 +134,8 @@ public class ReviewController {
         
         // 保存到数据库
         // 此操作会将 is_studied 设为 true，并更新 known 状态
+        // 如果用户点了"认识"(true)，下次这个词就不会出现在复习列表里了
+        // 如果点了"不认识"(false)，下次它还会出现
         recordDAO.updateStatus(currentUserId, w.getId(), isCurrentWordKnown);
         
         System.out.println("已保存: " + w.getEnglish() + " | 认识: " + isCurrentWordKnown);
@@ -143,14 +146,17 @@ public class ReviewController {
         if (currentIndex < wordList.size()) {
             showCurrentWord(); 
         } else {
-            JOptionPane.showMessageDialog(view, "恭喜！本次任务完成！");
+            JOptionPane.showMessageDialog(view, "恭喜！本次复习任务完成！");
             view.dispose(); 
-            
-            MainView mainView = new MainView();
-            // 关键：要把当前登录的 User 传给下一个控制器
-            new MainController(mainView, user); // 传入用户
-            mainView.setVisible(true);
+            gobackToMain();
         }
+    }
+    
+    // 返回主菜单
+    private void gobackToMain() {
+        MainView mainView = new MainView();
+        new MainController(mainView, user); 
+        mainView.setVisible(true);
     }
     
     public void showView() {
