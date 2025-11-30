@@ -8,110 +8,166 @@ package word.view;
  *
  * @author yuzhe
  */
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class ReviewView extends JFrame {
-    private JLabel lblWord;          // 单词
-    private JTextArea txtMeaning;    // 释义
+    private JLabel lblWord;
+    private JTextArea txtMeaning;
     
-    // 底部按钮容器
-    private JPanel bottomPanel;      // 放按钮的容器
-    private JButton btnKnown;        // 认识
-    private JButton btnUnknown;      // 不认识
-    private JButton btnNext;         // 下一个
+    private JPanel bottomPanel;
+    private JButton btnKnown;
+    private JButton btnUnknown;
+    private JButton btnNext;
+
+    // 颜色定义
+    private final Color COLOR_BG = new Color(240, 242, 245); // 背景灰
+    private final Color COLOR_CARD = Color.WHITE; // 卡片白
+    private final Color COLOR_GREEN = new Color(46, 204, 113); // 认识
+    private final Color COLOR_RED = new Color(231, 76, 60);   // 不认识
+    private final Color COLOR_BLUE = new Color(52, 152, 219); // 下一个
 
     public ReviewView() {
         initUI();
     }
 
     private void initUI() {
-        setTitle("背单词 - 复习");
-        setSize(500, 400);
+        setTitle("复习单词");
+        setSize(600, 500); // 宽一点
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        getContentPane().setBackground(COLOR_BG);
         setLayout(new BorderLayout());
 
-        // --- 中间区域 (单词 + 释义) ---
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(50, 20, 20, 20));
+        // --- 顶部：进度条或标题 (可选) ---
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topBar.setOpaque(false);
+        topBar.setBorder(new EmptyBorder(10, 20, 0, 0));
+        JLabel lblMode = new JLabel("正在复习");
+        lblMode.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
+        lblMode.setForeground(Color.GRAY);
+        topBar.add(lblMode);
+        add(topBar, BorderLayout.NORTH);
 
-        lblWord = new JLabel("Word");
-        lblWord.setFont(new Font("Arial", Font.BOLD, 32));
+        // --- 中间：单词卡片 ---
+        // 使用一个圆角卡片面板
+        JPanel cardPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(COLOR_CARD);
+                // 绘制圆角矩形背景
+                g2.fillRoundRect(20, 20, getWidth()-40, getHeight()-40, 30, 30);
+                // 简单的边框
+                g2.setColor(new Color(220, 220, 220));
+                g2.drawRoundRect(20, 20, getWidth()-40, getHeight()-40, 30, 30);
+            }
+        };
+        cardPanel.setOpaque(false);
+        cardPanel.setLayout(new GridBagLayout()); // 为了绝对居中
+
+        // 单词内容容器
+        JPanel wordContent = new JPanel();
+        wordContent.setLayout(new BoxLayout(wordContent, BoxLayout.Y_AXIS));
+        wordContent.setOpaque(false);
+        wordContent.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // 单词
+        lblWord = new JLabel("Vocabulary");
+        lblWord.setFont(new Font("Arial", Font.BOLD, 48)); // 超大字体
+        lblWord.setForeground(new Color(44, 62, 80));
         lblWord.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        txtMeaning = new JTextArea("Meaning");
-        txtMeaning.setFont(new Font("SimHei", Font.PLAIN, 18));
+        
+        // 释义区
+        txtMeaning = new JTextArea("这里是释义区域\nn. 词汇量");
+        txtMeaning.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
+        txtMeaning.setForeground(new Color(100, 100, 100));
         txtMeaning.setLineWrap(true);
         txtMeaning.setWrapStyleWord(true);
         txtMeaning.setEditable(false);
-        txtMeaning.setOpaque(false); // 透明背景
+        txtMeaning.setOpaque(false);
         txtMeaning.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        centerPanel.add(lblWord);
-        centerPanel.add(Box.createVerticalStrut(40)); // 间距
-        centerPanel.add(txtMeaning);
+        // 限制释义宽度
+        txtMeaning.setSize(new Dimension(400, 100)); 
+        txtMeaning.setMaximumSize(new Dimension(400, 200));
 
-        this.add(centerPanel, BorderLayout.CENTER);
+        wordContent.add(lblWord);
+        wordContent.add(Box.createVerticalStrut(30)); // 间距
+        wordContent.add(txtMeaning);
 
-        // --- 底部区域 (按钮) ---
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        
-        btnKnown = new JButton("我认识");
-        btnUnknown = new JButton("不认识");
-        btnNext = new JButton("下一个");
-        
-        // 样式微调
-        Dimension btnSize = new Dimension(100, 40);
-        btnKnown.setPreferredSize(btnSize);
-        btnUnknown.setPreferredSize(btnSize);
-        btnNext.setPreferredSize(new Dimension(200, 40)); // "下一个"按钮大一点
+        cardPanel.add(wordContent);
+        add(cardPanel, BorderLayout.CENTER);
 
+        // --- 底部：操作按钮 ---
+        bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 30));
+        bottomPanel.setOpaque(false);
+        
+        // 创建漂亮的圆形按钮
+        btnKnown = createActionButton("认识", COLOR_GREEN);
+        btnUnknown = createActionButton("不认识", COLOR_RED);
+        btnNext = createActionButton("下一个 ->", COLOR_BLUE);
+        
+        // 设置大小
+        btnNext.setPreferredSize(new Dimension(200, 50)); 
+
+        bottomPanel.add(btnUnknown); // 把不认识放左边，防误触习惯
         bottomPanel.add(btnKnown);
-        bottomPanel.add(btnUnknown);
         bottomPanel.add(btnNext);
 
-        this.add(bottomPanel, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+    
+    // 创建底部的大按钮
+    private JButton createActionButton(String text, Color bg) {
+        JButton btn = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(bg);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40); // 胶囊形状
+                super.paintComponent(g2);
+                g2.dispose();
+            }
+        };
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 16));
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setContentAreaFilled(false);
+        btn.setPreferredSize(new Dimension(140, 50));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
     }
 
-    // ==================== 核心逻辑方法 ====================
+    // ==================== 逻辑方法 ====================
 
-    /**
-     * 切换视图模式
-     * @param isDecisionPhase 
-     *    true:  答题阶段 (显示 认识/不认识，隐藏 释义，隐藏 下一个)
-     *    false: 结果阶段 (隐藏 认识/不认识，显示 释义，显示 下一个)
-     */
      public void switchMode(boolean isDecisionPhase) {
         if (isDecisionPhase) {
-            // 状态A：刚看到单词
+            // 答题阶段
             txtMeaning.setVisible(false);
             btnKnown.setVisible(true);
             btnUnknown.setVisible(true);
-            btnNext.setVisible(false);        // 藏下一个
+            btnNext.setVisible(false);
         } else {
-            // 状态B：看答案
+            // 结果阶段
             txtMeaning.setVisible(true);
-        
-            // 如果你希望点完还在，就把下面两行注释掉。
-            // 但通常为了防误触，我们是会让它们消失的。
             btnKnown.setVisible(false);   
             btnUnknown.setVisible(false);
-        
-            btnNext.setVisible(true);         // 显下一个
+            btnNext.setVisible(true);
         }
-        // 刷新布局，防止按钮隐藏后位置没更新
         bottomPanel.revalidate();
         bottomPanel.repaint();
     }
 
-    // 设置文本
     public void setWord(String text) { lblWord.setText(text); }
     public void setMeaning(String text) { txtMeaning.setText(text); }
 
-    // 监听器绑定
     public void addKnownListener(ActionListener l) { btnKnown.addActionListener(l); }
     public void addUnknownListener(ActionListener l) { btnUnknown.addActionListener(l); }
     public void addNextListener(ActionListener l) { btnNext.addActionListener(l); }
