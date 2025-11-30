@@ -51,6 +51,7 @@ public class MainController {
                         "太棒了！《" + currentBook + "》的所有单词已学完。\n请点击“选择词书”切换其他书籍，或等待重置。", 
                         "恭喜", 
                         JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println(studyList.isEmpty());
                     return; // 直接结束，不打开新窗口
                 }
 
@@ -80,6 +81,7 @@ public class MainController {
                         "恭喜！目前没有需要复习的错题。\n(所有已背单词都已掌握，或尚未开始学习)",
                         "复习完成",
                         JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println(reviewList.isEmpty());
                     return; // 直接结束
                 }
 

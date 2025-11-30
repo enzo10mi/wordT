@@ -32,6 +32,7 @@ public class Word {
             e.printStackTrace();
         }
         
+        System.out.println("当前数据库单词总数：" + count);
         
         // 检查单词数量是否为0，如果为0则导入
         if(count == 0){
@@ -44,7 +45,6 @@ public class Word {
             DataImporter.importFromTxt("gaokao.txt", "高考词汇");
         }
         
-        System.out.println("当前数据库单词总数：" + count);
         
         // --- 2. 【核心修改】启动登录流程 ---
         try {
