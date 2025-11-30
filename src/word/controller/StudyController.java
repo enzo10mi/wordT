@@ -13,6 +13,7 @@ import word.view.MainView;
 public class StudyController {
     private StudyView view;
     private User user;
+    private String currentBook; // 【新增】保存当前词书名
     private int currentUserId; 
     private WordDAO wordDAO;
     private StudyrecordDAO recordDAO;
@@ -24,13 +25,15 @@ public class StudyController {
     private boolean isCurrentWordKnown = false; 
 
     /**
-     * 构造函数
+     * 【修改构造函数】：增加 bookName 参数
      * @param view 视图界面
      * @param user 当前登录用户
+     * @param bookName 当前选中的词书
      */
-    public StudyController(StudyView view, User user) {
+    public StudyController(StudyView view, User user, String bookName) {
         this.view = view;
         this.user = user;
+        this.currentBook = bookName; // 【新增】赋值
         this.currentUserId = user.getId(); 
         
         // 初始化 DAO
@@ -46,8 +49,8 @@ public class StudyController {
         // 3. 绑定按钮事件
         initActions();
         
-        // 4. 设置窗口标题
-        view.setTitle("背单词 - 学习新词");
+        // 4. 设置窗口标题 (显示正在背哪本书)
+        view.setTitle("背单词 - 学习新词 [" + currentBook + "]");
         
         // 5. 显示第一个单词
         if (wordList != null && !wordList.isEmpty()) {
@@ -60,11 +63,13 @@ public class StudyController {
      */
     private void loadData() {
         // 【学习模式】：调用 getStudyList
-        // 获取所有 is_studied=false 的单词
-        wordList = wordDAO.getStudyList(currentUserId, 20); 
+        // 【核心修改】：传入 currentBook，只获取该书下 is_studied=false 的单词
+        wordList = wordDAO.getStudyList(currentUserId, currentBook, 20); 
+        
         if (wordList.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "恭喜！您已学完词库中的所有单词！");
+            JOptionPane.showMessageDialog(view, "恭喜！[" + currentBook + "] 的单词已全部学完！");
             view.dispose(); // 关闭窗口
+            goBackToMain(); // 返回主菜单
         }
     }
 
@@ -78,6 +83,7 @@ public class StudyController {
         } else {
             JOptionPane.showMessageDialog(view, "本组单词完成！");
             view.dispose(); 
+            goBackToMain(); // 返回主菜单
         }
     }
 
@@ -135,12 +141,16 @@ public class StudyController {
         } else {
             JOptionPane.showMessageDialog(view, "恭喜！本次任务完成！");
             view.dispose();
-            
-            MainView mainView = new MainView();
-            // 关键：要把当前登录的 User 传给下一个控制器
-            new MainController(mainView, user); // 传入用户
-            mainView.setVisible(true);
+            goBackToMain(); // 返回主菜单
         }
+    }
+    
+    // 【新增】返回主菜单的逻辑抽取
+    private void goBackToMain() {
+        MainView mainView = new MainView();
+        // 返回时记得把当前选的书带回去，否则可能会丢失状态
+        new MainController(mainView, user, currentBook); 
+        mainView.setVisible(true);
     }
     
     public void showView() {
