@@ -45,7 +45,7 @@ public class RunApp {
         // 检查单词数量是否为0，如果为0则导入
         if(count == 0){
             // SqlApp.INIT_WORDS 默认为 "test.txt"
-            DataImporter.importFromTxt(SqlApp.INIT_WORDS, "test"); //
+            DataImporter.importFromTxt(SqlApp.INIT_WORDS, "CT4"); //
         }
         
         

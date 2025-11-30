@@ -35,5 +35,5 @@ public class SqlApp {
         "CONSTRAINT fk_word FOREIGN KEY (word_id) REFERENCES Words(id))";
     
     // 4. 初始化数据文件名 (保持不变)
-    public static final String INIT_WORDS = "test.txt"; 
+    public static final String INIT_WORDS = "CT4.txt"; 
 }
