@@ -14,10 +14,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-/**
- * 学习与复习界面的通用抽象基类
- * @author yuzhe
- */
 public abstract class BaseCardView extends JFrame {
     
     // UI 组件 (设为 protected 以便子类在极端情况下需要访问，或者保持 private 仅通过方法操作)

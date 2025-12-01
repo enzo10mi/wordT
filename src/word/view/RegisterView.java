@@ -32,7 +32,7 @@ public class RegisterView extends JFrame {
         setLocationRelativeTo(null);
         getContentPane().setBackground(BG_COLOR);
         
-        // 1. 核心修正：GridBagLayout 居中
+        // GridBagLayout 居中
         setLayout(new GridBagLayout());
 
         initUI();
@@ -123,7 +123,7 @@ public class RegisterView extends JFrame {
     
         private JButton createModernButton(String text, Color bg, Color fg) {
         JButton btn = new JButton(text) {
-            // 1. 【核心修复】重写点击检测范围
+            // 重写点击检测范围
             // 告诉 Swing：只要在这个形状内点击，都算点到了按钮，不要穿透过去
             @Override
             public boolean contains(int x, int y) {
@@ -140,7 +140,7 @@ public class RegisterView extends JFrame {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                // 2. 【体验优化】增加按下的视觉反馈
+                // 增加按下的视觉反馈
                 // 如果按钮被按下，颜色变深一点，否则用原色
                 if (getModel().isPressed()) {
                     g2.setColor(bg.darker());
@@ -154,7 +154,7 @@ public class RegisterView extends JFrame {
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                 g2.dispose(); // 画完背景销毁临时的 Graphics2D
 
-                // 3. 调用父类绘制文字
+                // 调用父类绘制文字
                 // 注意：要在画完背景后调用，否则文字会被背景盖住
                 super.paintComponent(g);
             }
