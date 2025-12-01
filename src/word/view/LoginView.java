@@ -26,7 +26,7 @@ public class LoginView extends JFrame {
     private final int FORM_WIDTH = 280; // 设定表单的固定宽度
 
     public LoginView() {
-        setTitle("用户登录");
+        setTitle("Log in");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -55,7 +55,7 @@ public class LoginView extends JFrame {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // 居中对齐
         mainPanel.add(titleLabel);
         
-        JLabel subTitle = new JLabel("欢迎回来，请登录");
+        JLabel subTitle = new JLabel("Welcome back! Please log in");
         subTitle.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
         subTitle.setForeground(Color.GRAY);
         subTitle.setAlignmentX(Component.CENTER_ALIGNMENT); // 居中对齐
@@ -65,16 +65,16 @@ public class LoginView extends JFrame {
         mainPanel.add(Box.createVerticalStrut(30));
 
         // --- 用户名区域 ---
-        mainPanel.add(createFormItem("账号", txtUsername = createStyledTextField()));
+        mainPanel.add(createFormItem("Username", txtUsername = createStyledTextField()));
         mainPanel.add(Box.createVerticalStrut(15));
 
         // --- 密码区域 ---
-        mainPanel.add(createFormItem("密码", txtPassword = createStyledPasswordField()));
+        mainPanel.add(createFormItem("password", txtPassword = createStyledPasswordField()));
         mainPanel.add(Box.createVerticalStrut(30));
 
         // --- 按钮 ---
-        btnLogin = createModernButton("登 录", PRIMARY_COLOR, Color.WHITE);
-        btnRegister = createModernButton("注册账号", new Color(230, 230, 230), Color.GRAY);
+        btnLogin = createModernButton("Login", PRIMARY_COLOR, Color.WHITE);
+        btnRegister = createModernButton("Register", new Color(230, 230, 230), Color.GRAY);
 
         btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnRegister.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -203,12 +203,12 @@ public class LoginView extends JFrame {
     public String getPassword() { return new String(txtPassword.getPassword()); }
     
     public void addLoginListener(ActionListener listener) {
-        btnLogin.setActionCommand("登录");
+        btnLogin.setActionCommand("Login");
         btnLogin.addActionListener(listener);
     }
 
     public void addRegisterListener(ActionListener listener) {
-        btnRegister.setActionCommand("注册");
+        btnRegister.setActionCommand("Register");
         btnRegister.addActionListener(listener);
     }
 

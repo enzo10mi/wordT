@@ -17,12 +17,12 @@ public class StudyView extends BaseCardView {
 
     @Override
     protected String getWindowTitle() {
-        return "背单词";
+        return "Studying";
     }
 
     @Override
     protected String getModeLabelText() {
-        return "正在学习";
+        return "Studying";
     }
     
     // 如果学习模式有特有的逻辑，可以在这里添加

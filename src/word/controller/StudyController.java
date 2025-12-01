@@ -45,7 +45,7 @@ public class StudyController implements LearningSession {
         loadData();
         initActions();
         
-        view.setTitle("背单词 - 学习新词 [" + currentBook + "]");
+        view.setTitle("Study - dictionary: [" + currentBook + "]");
         
         if (wordList != null && !wordList.isEmpty()) {
             showCurrentWord();
@@ -73,7 +73,7 @@ public class StudyController implements LearningSession {
             view.setMeaning(w.getChinese());
             view.switchMode(true); 
         } else {
-            JOptionPane.showMessageDialog(view, "本组单词完成！");
+            JOptionPane.showMessageDialog(view, "Mission accomplished！");
             view.dispose(); 
             goBackToMain(); 
         }
@@ -122,7 +122,7 @@ public class StudyController implements LearningSession {
         if (currentIndex < wordList.size()) {
             showCurrentWord(); 
         } else {
-            JOptionPane.showMessageDialog(view, "恭喜！本次任务完成！");
+            JOptionPane.showMessageDialog(view, "Mission accompilshed！");
             view.dispose();
             goBackToMain(); 
         }

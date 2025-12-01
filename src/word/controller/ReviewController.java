@@ -44,7 +44,7 @@ public class ReviewController implements LearningSession {
         loadData();
         initActions();
         
-        view.setTitle("背单词 - 复习错题本");
+        view.setTitle("Review");
         
         if (wordList != null && !wordList.isEmpty()) {
             showCurrentWord();
@@ -72,7 +72,7 @@ public class ReviewController implements LearningSession {
             view.setMeaning(w.getChinese());
             view.switchMode(true); 
         } else {
-            JOptionPane.showMessageDialog(view, "本组复习完成！");
+            JOptionPane.showMessageDialog(view, "Review complete！");
             view.dispose(); 
             goBackToMain();
         }
@@ -122,7 +122,7 @@ public class ReviewController implements LearningSession {
         if (currentIndex < wordList.size()) {
             showCurrentWord(); 
         } else {
-            JOptionPane.showMessageDialog(view, "恭喜！本次复习任务完成！");
+            JOptionPane.showMessageDialog(view, "Mission accomplished！");
             view.dispose(); 
             goBackToMain();
         }

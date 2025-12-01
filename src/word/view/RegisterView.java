@@ -26,7 +26,7 @@ public class RegisterView extends JFrame {
     private final int FORM_WIDTH = 280; // 固定宽度
 
     public RegisterView() {
-        setTitle("新用户注册");
+        setTitle("New user registration");
         setSize(400, 550); // 稍微高一点
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -44,7 +44,7 @@ public class RegisterView extends JFrame {
         mainPanel.setBackground(BG_COLOR);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel title = new JLabel("创建账号");
+        JLabel title = new JLabel("Register");
         title.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 24));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setForeground(new Color(50, 50, 50));
@@ -53,18 +53,18 @@ public class RegisterView extends JFrame {
         mainPanel.add(Box.createVerticalStrut(30));
 
         // 表单项
-        mainPanel.add(createFormItem("用户名", txtUsername = createStyledField()));
+        mainPanel.add(createFormItem("username", txtUsername = createStyledField()));
         mainPanel.add(Box.createVerticalStrut(10));
         
-        mainPanel.add(createFormItem("设置密码", txtPassword = createStyledPasswordField()));
+        mainPanel.add(createFormItem("password", txtPassword = createStyledPasswordField()));
         mainPanel.add(Box.createVerticalStrut(10));
         
-        mainPanel.add(createFormItem("确认密码", txtConfirmPassword = createStyledPasswordField()));
+        mainPanel.add(createFormItem("comfirm password", txtConfirmPassword = createStyledPasswordField()));
         mainPanel.add(Box.createVerticalStrut(30));
 
         // 按钮
-        btnSubmit = createModernButton("立即注册", ACCENT_COLOR, Color.WHITE);
-        btnBack = createModernButton("返回登录", new Color(230, 230, 230), Color.GRAY);
+        btnSubmit = createModernButton("Register now", ACCENT_COLOR, Color.WHITE);
+        btnBack = createModernButton("back to login", new Color(230, 230, 230), Color.GRAY);
         
         btnSubmit.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnBack.setAlignmentX(Component.CENTER_ALIGNMENT);

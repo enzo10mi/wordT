@@ -115,9 +115,9 @@ public abstract class BaseCardView extends JFrame {
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 30));
         bottomPanel.setOpaque(false);
         
-        btnKnown = createActionButton("认识", COLOR_GREEN);
-        btnUnknown = createActionButton("不认识", COLOR_RED);
-        btnNext = createActionButton("下一个 ->", COLOR_BLUE);
+        btnKnown = createActionButton("Known", COLOR_GREEN);
+        btnUnknown = createActionButton("Unknown", COLOR_RED);
+        btnNext = createActionButton("Next ->", COLOR_BLUE);
         
         btnNext.setPreferredSize(new Dimension(200, 50)); 
 

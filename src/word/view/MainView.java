@@ -31,7 +31,7 @@ public class MainView extends JFrame {
     }
 
     private void initUI() {
-        setTitle("背单词助手 - 首页");
+        setTitle("Recite words");
         setSize(450, 650); // 稍微增加高度以容纳统计信息
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -45,11 +45,11 @@ public class MainView extends JFrame {
         headerPanel.setPreferredSize(new Dimension(getWidth(), 120));
         headerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        lblWelcome = new JLabel("Hi, 欢迎回来");
+        lblWelcome = new JLabel("Hi,welcome back");
         lblWelcome.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 24));
         lblWelcome.setForeground(Color.WHITE);
         
-        JLabel lblSub = new JLabel("今天也要坚持学习哦！");
+        JLabel lblSub = new JLabel("Keep studying!");
         lblSub.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
         lblSub.setForeground(new Color(220, 240, 255));
 
@@ -71,9 +71,9 @@ public class MainView extends JFrame {
         contentPanel.setBackground(Color.WHITE);
 
         // 创建大卡片按钮
-        btnSelectbook = createCardButton("更换词书", "当前词库: 暂未选择", new Color(241, 196, 15), "book_icon");
-        btnStartStudy = createCardButton("开始新词", "挑战新的单词", new Color(52, 152, 219), "study_icon");
-        btnReview = createCardButton("复习错题", "巩固记忆曲线", new Color(46, 204, 113), "review_icon");
+        btnSelectbook = createCardButton("change dictionary", "", new Color(241, 196, 15), "book_icon");
+        btnStartStudy = createCardButton("Study", "Challenge new words", new Color(52, 152, 219), "study_icon");
+        btnReview = createCardButton("Review", "Strengthening the memory curve", new Color(46, 204, 113), "review_icon");
 
         contentPanel.add(btnSelectbook);
         contentPanel.add(btnStartStudy);
@@ -91,7 +91,7 @@ public class MainView extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(new EmptyBorder(0,0,20,0));
-        btnLogout = new JButton("退出登录");
+        btnLogout = new JButton("Log out");
         btnLogout.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
         btnLogout.setForeground(Color.GRAY);
         btnLogout.setBorderPainted(false);
@@ -109,9 +109,9 @@ public class MainView extends JFrame {
         statsPanel.setBackground(Color.WHITE);
         
         // 已学单词统计卡片
-        JPanel studiedCard = createStatCard("已学单词/词书词数", "0/0", new Color(52, 152, 219));
+        JPanel studiedCard = createStatCard("Learning/Sum", "0/0", new Color(52, 152, 219));
         // 待复习单词统计卡片  
-        JPanel unknownCard = createStatCard("待复习", "0", new Color(231, 76, 60));
+        JPanel unknownCard = createStatCard("To be reviewed", "0", new Color(231, 76, 60));
         
         statsPanel.add(studiedCard);
         statsPanel.add(unknownCard);
@@ -149,7 +149,7 @@ public class MainView extends JFrame {
         
        
         JLabel countLabel;
-        if (title.equals("已学单词/词书词数")) {
+        if (title.equals("Learning/Sum")) {
             lblStudiedCount = new JLabel(count);
             countLabel = lblStudiedCount;
         } else {

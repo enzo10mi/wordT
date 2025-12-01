@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NetBeansProjects/WordT/src/word/controller/MainController.java</file>
-            <file>file:/D:/NetBeansProjects/WordT/src/word/dao/StudyrecordDAO.java</file>
+            <file>file:/D:/NetBeansProjects/WordT/src/word/view/BaseCardView.java</file>
+            <file>file:/D:/NetBeansProjects/WordT/src/word/view/StudyView.java</file>
             <file>file:/D:/NetBeansProjects/WordT/src/word/Word.java</file>
+            <file>file:/D:/NetBeansProjects/WordT/src/word/view/RegisterView.java</file>
+            <file>file:/D:/NetBeansProjects/WordT/src/word/view/ReviewView.java</file>
+            <file>file:/D:/NetBeansProjects/WordT/src/word/view/MainView.java</file>
         </group>
     </open-files>
 </project-private>

@@ -51,12 +51,12 @@ public class RegisterController {
         String confirm = view.getConfirmPassword(); 
 
         if (username.isEmpty() || password.isEmpty()) {
-            view.showMessage("用户名和密码不能为空！");
+            view.showMessage("The username and password cannot be left blank!");
             return;
         }
         // 确认密码
         if (!password.equals(confirm)) {
-            view.showMessage("两次输入的密码不一致！");
+            view.showMessage("The passwords entered twice were not the same!");
             return;
         }
 
@@ -83,10 +83,10 @@ public class RegisterController {
             
             // ====================
 
-            view.showMessage("注册成功！请登录。");
+            view.showMessage("Registration successful.Please log in");
             goBackToLogin(); // 注册成功后自动跳回登录页
         } else {
-            view.showMessage("注册失败，用户名可能已存在。");
+            view.showMessage("Registration failed.The username is already in use");
         }
     }
 

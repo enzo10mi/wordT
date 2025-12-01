@@ -44,7 +44,7 @@ public class LoginController {
         String password = view.getPassword();
 
         if (username.isEmpty() || password.isEmpty()) {
-            view.showErrorMessage("用户名或密码不能为空");
+            view.showErrorMessage("The username or password cannot be left blank!");
             return;
         }
 
@@ -65,7 +65,7 @@ public class LoginController {
             mainView.setVisible(true);
             
         } else {
-            view.showErrorMessage("用户名或密码错误！");
+            view.showErrorMessage("Wrong username or password！");
         }
     }
     

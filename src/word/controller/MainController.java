@@ -26,7 +26,7 @@ public class MainController {
         this.currentBook = bookName; 
         
         // 更新标题栏，显示当前用户和书名
-        view.setTitle("背单词系统 - " + user.getUsername() + " [当前词书: " + currentBook + "]");
+        view.setTitle("Recite words - " + user.getUsername() + " [Current dictionary: " + currentBook + "]");
         
         // 加载统计信息
         loadStatistics();
@@ -77,8 +77,8 @@ public class MainController {
                 if (studyList.isEmpty()) {
                     // 如果列表为空，说明这本书这一轮背完了
                     JOptionPane.showMessageDialog(view, 
-                        "太棒了！《" + currentBook + "》的所有单词已学完。\n请点击\"选择词书\"切换其他书籍，或等待重置。", 
-                        "恭喜", 
+                        "Great! All the words in" + currentBook + " have been learned\nPlease click\"选择词书\" to change book", 
+                        "Congratulation", 
                         JOptionPane.INFORMATION_MESSAGE);
                     System.out.println(studyList.isEmpty());
                     return; // 直接结束，不打开新窗口
@@ -107,8 +107,8 @@ public class MainController {
                 // 1. 检查结果
                 if (reviewList.isEmpty()) {
                     JOptionPane.showMessageDialog(view, 
-                        "恭喜！目前没有需要复习的错题。\n(所有已背单词都已掌握，或尚未开始学习)",
-                        "复习完成",
+                        "Currently, there are no misspelled words that need to be reviewed\n",
+                        "Review completed",
                         JOptionPane.INFORMATION_MESSAGE);
                     System.out.println(reviewList.isEmpty());
                     return; // 直接结束
@@ -158,8 +158,8 @@ public class MainController {
         Object[] possibilities = books.toArray();
         String s = (String) JOptionPane.showInputDialog(
                             view,
-                            "欢迎回来！\n请选择您本学期要学习的词书:",
-                            "选择词书",
+                            "Welcome back! \nPlease select a dictionary:",
+                            "Select a dictionary",
                             JOptionPane.PLAIN_MESSAGE,
                             null,
                             possibilities,
@@ -171,7 +171,7 @@ public class MainController {
             System.out.println("用户切换词书为: " + currentBook); // 调试信息
             
             // 2. 实时更新窗口标题，给用户反馈
-            view.setTitle("背单词系统 - " + user.getUsername() + " [当前词书: " + currentBook + "]");
+            view.setTitle("Recite words - " + user.getUsername() + " [Current dictionary: " + currentBook + "]");
             
             // 重新加载统计信息
             loadStatistics();

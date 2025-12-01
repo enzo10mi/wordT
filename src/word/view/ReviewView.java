@@ -17,12 +17,12 @@ public class ReviewView extends BaseCardView {
 
     @Override
     protected String getWindowTitle() {
-        return "复习单词";
+        return "Reviewing";
     }
 
     @Override
     protected String getModeLabelText() {
-        return "正在复习";
+        return "Reviewing";
     }
     
     // 如果复习模式有特有的逻辑，可以在这里添加
