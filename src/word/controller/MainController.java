@@ -11,13 +11,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import word.dao.WordDAO;
 import word.model.Word;
-import word.dao.StudyrecordDAO; // 【新增】导入学习记录DAO
-import java.sql.*; // 【新增】导入SQL相关包
+import word.dao.StudyrecordDAO; // 导入学习记录DAO
+import java.sql.*; // 导入SQL相关包
 
 public class MainController {
     private MainView view;
     private User user;
-    private String currentBook; // 用来存选中的书名
+    private String currentBook; // 存选中的书名
 
     // 【构造函数】
     public MainController(MainView view, User user, String bookName) {
@@ -28,26 +28,27 @@ public class MainController {
         // 更新标题栏，显示当前用户和书名
         view.setTitle("背单词系统 - " + user.getUsername() + " [当前词书: " + currentBook + "]");
         
-        // 【新增】加载统计信息
+        // 加载统计信息
         loadStatistics();
         
         initActions();
     }
     
-    // 兼容旧代码的构造函数 
     public MainController(MainView view, User user) {
         this(view, user, "四级词汇");
     }
     
-    // 【修改】加载学习统计信息
+    // 加载学习统计信息
     private void loadStatistics() {
+        StudyrecordDAO dao = new StudyrecordDAO();
+        
         try {
             // 获取已学习单词数量
-            int studiedCount = getStudiedWordCount();
+            int studiedCount = dao.getStudiedWordCount(user.getId());
             // 获取当前词书的总单词数
-            int totalCount = getTotalWordCount();
+            int totalCount = dao.getTotalWordCount(currentBook);
             // 获取待复习单词数量（已学习但不认识的）
-            int unknownCount = getUnknownWordCount();
+            int unknownCount = dao.getUnknownWordCount(user.getId());
             
             // 更新界面显示
             view.setStudiedCount(studiedCount, totalCount); // 传递两个参数
@@ -61,56 +62,6 @@ public class MainController {
         }
     }
     
-    // 【新增】获取当前词书的总单词数
-    private int getTotalWordCount() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM Words WHERE category = ?";
-        
-        try (Connection conn = word.util.DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, currentBook);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        }
-        return 0;
-    }
-    
-    // 【新增】获取已学习单词数量
-    private int getStudiedWordCount() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM StudyRecords WHERE user_id = ? AND is_studied = true";
-        
-        try (Connection conn = word.util.DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, user.getId());
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        }
-        return 0;
-    }
-    
-    // 【新增】获取待复习单词数量（已学习但不认识的）
-    private int getUnknownWordCount() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM StudyRecords WHERE user_id = ? AND is_studied = true AND known = false";
-        
-        try (Connection conn = word.util.DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, user.getId());
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        }
-        return 0;
-    }
 
     private void initActions() {
         // --- 1. "开始学习" 按钮 ---
@@ -194,7 +145,7 @@ public class MainController {
         });
     }
     
-    // 【新增】私有方法：处理选书逻辑
+    // 处理选书逻辑
     private void selectBook() {
         WordDAO wordDAO = new WordDAO();
         // 1. 从数据库获取所有可用的词书分类
@@ -214,7 +165,7 @@ public class MainController {
                             possibilities,
                             possibilities[0]);
 
-        // 【修正这里】如果用户做出了选择
+        // 如果用户做出了选择
         if ((s != null) && (s.length() > 0)) {
             currentBook = s; // 1. 保存用户选的书
             System.out.println("用户切换词书为: " + currentBook); // 调试信息
@@ -222,7 +173,7 @@ public class MainController {
             // 2. 实时更新窗口标题，给用户反馈
             view.setTitle("背单词系统 - " + user.getUsername() + " [当前词书: " + currentBook + "]");
             
-            // 【新增】重新加载统计信息
+            // 重新加载统计信息
             loadStatistics();
         }
     }

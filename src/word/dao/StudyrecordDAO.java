@@ -52,4 +52,55 @@ public class StudyrecordDAO {
             return false;
         }
     }
+    
+    // 【新增】获取当前词书的总单词数
+    public int getTotalWordCount(String currentBook) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Words WHERE category = ?";
+        
+        try (Connection conn = word.util.DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, currentBook);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+    
+    // 【新增】获取已学习单词数量
+    public int getStudiedWordCount(int userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM StudyRecords WHERE user_id = ? AND is_studied = true";
+        
+        try (Connection conn = word.util.DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+    
+    // 【新增】获取待复习单词数量（已学习但不认识的）
+    public int getUnknownWordCount(int userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM StudyRecords WHERE user_id = ? AND is_studied = true AND known = false";
+        
+        try (Connection conn = word.util.DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
 }

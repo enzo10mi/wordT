@@ -51,7 +51,7 @@ public class ReviewController implements LearningSession {
         }
     }
 
-    // 【修改2】实现接口方法 (改为 public)
+    // 实现接口方法
     @Override
     public void showView() {
         view.setVisible(true);
@@ -131,8 +131,8 @@ public class ReviewController implements LearningSession {
     @Override
     public void goBackToMain() {
         MainView mainView = new MainView();
-        // 这里复习完通常默认回主界面，如果 MainController 需要 bookName，这里可能需要注意
-        // 你的旧代码里这里使用的是 User 构造，所以默认是 "四级词汇"，如果要精确控制可以传参
+        // 复习完默认回主界面
+        // 默认是 "四级词汇"
         new MainController(mainView, user); 
         mainView.setVisible(true);
     }

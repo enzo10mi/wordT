@@ -22,7 +22,7 @@ public class MainView extends JFrame {
     private JButton btnReview;
     private JButton btnLogout;
     
-    // 【新增】统计信息标签
+    // 统计信息标签
     private JLabel lblStudiedCount;
     private JLabel lblUnknownCount;
 
@@ -61,7 +61,7 @@ public class MainView extends JFrame {
         headerPanel.add(textPanel, BorderLayout.CENTER);
         add(headerPanel, BorderLayout.NORTH);
 
-        // --- 【新增】统计信息面板 ---
+        // --- 统计信息面板 ---
         JPanel statsPanel = createStatsPanel();
         add(statsPanel, BorderLayout.CENTER);
 
@@ -102,7 +102,7 @@ public class MainView extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    // 【新增】创建统计信息面板
+    // 创建统计信息面板
     private JPanel createStatsPanel() {
         JPanel statsPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // 1行2列
         statsPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
@@ -119,7 +119,7 @@ public class MainView extends JFrame {
         return statsPanel;
     }
     
-    // 【新增】创建统计卡片
+    // 创建统计卡片
     private JPanel createStatCard(String title, String count, Color color) {
         JPanel card = new JPanel() {
             @Override

@@ -52,7 +52,7 @@ public class StudyController implements LearningSession {
         }
     }
 
-    // 【修改2】实现接口方法 (改为 public)
+    // 实现接口方法
     @Override
     public void showView() {
         view.setVisible(true);

@@ -59,7 +59,7 @@ public class LoginController {
             String selectedBook = "四级词汇";
             
             MainView mainView = new MainView();
-            // 关键：要把当前登录的 User 和 选中的书名 传给下一个控制器
+            // 要把当前登录的 User 和 选中的书名 传给下一个控制器
             // (MainController 构造函数需要对应修改)
             new MainController(mainView, user, selectedBook); 
             mainView.setVisible(true);

@@ -67,21 +67,21 @@ public class RegisterController {
         boolean success = userDAO.register(newUser); 
         
         if (success) {
-            // ========== 【核心修改开始】 ==========
+            // ====================
             
-            // 2. 注册成功后，我们必须获取新用户的 ID。
-            //    最简单的办法是直接用刚才的账号密码 "登录" 一次，查出完整的 User 对象
+            // 注册成功后，获取新用户的 ID。
+            // 直接用刚才的账号密码 "登录" 一次，查出完整的 User 对象
             User createdUser = userDAO.login(username, password);
             
             if (createdUser != null) {
-                // 3. 调用 StudyrecordDAO 为该 ID 初始化数据
+                // 调用 StudyrecordDAO 为该 ID 初始化数据
                 StudyrecordDAO studyDAO = new StudyrecordDAO();
                 int count = studyDAO.initRecords(createdUser.getId());
                 
                 System.out.println("新用户注册初始化完成，已生成 " + count + " 条学习记录。");
             }
             
-            // ========== 【核心修改结束】 ==========
+            // ====================
 
             view.showMessage("注册成功！请登录。");
             goBackToLogin(); // 注册成功后自动跳回登录页
