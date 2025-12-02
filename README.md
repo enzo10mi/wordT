@@ -2,7 +2,7 @@
 
 
 
-这是一个用于 \*\*管理单词\*\* 的项目。
+这是一个用于 \*\*背单词学习\*\* 的项目。
 
 
 
@@ -12,5 +12,8 @@
 
 &nbsp;  ```bash
 
+(Final version , English v1.1)
+&nbsp;  git clone https://github.com/enzo10mi/wordT.git
+(Fisrt version , Chinese)
 &nbsp;  git clone https://github.com/ChiaKi707/word.git
 
